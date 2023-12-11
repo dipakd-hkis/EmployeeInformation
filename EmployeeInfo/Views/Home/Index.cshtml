@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<section class="add-employee-container">
+    <div class="container-fluid h-custom d-flex justify-content-center">
+        <div class="row col-md-7 employee">
+            <h1 class="mb-3 text-center add-title"> Add Employee</h1>
+            <form action="@Url.Action("AddEditEmployeeDetails","Home")" method="post" onsubmit="return ValidateForm(this);">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-outline mb-4">
+                    <label for="Employee_Code" class="form-label fw-bold">Employee Code</label>
+                    <input name="Employee_Code" class="form-control empcode" maxlength="50" placeholder="Enter Employee Code" />
+                    <span id="isemployeecode" class="error" style="display:none">Employee Code is required.</span>
+                    <span id="isuniquecode" class="error" style="display:none">This Code is already Used,Please Enter Unique Code.</span>
+                </div>
+                <div class="form-outline mb-4">
+                    <label for="First_Name" class="form-label fw-bold">First name</label>
+                    <input name="First_Name" type="text" maxlength="30" class="form-control" placeholder="Enter First name" />
+                    <span id="isfirstname" class="error" style="display:none">First Name is required.</span>
+                </div>
+                <div class="form-outline mb-4">
+                    <label for="Last_Name" class="form-label fw-bold">Last name</label>
+                    <input name="Last_Name" type="text" maxlength="30" class="form-control" placeholder="Enter Last name" />
+                    <span id="islastname" class="error" style="display:none">Last Name is required.</span>
+                </div>
+                <div class="form-outline mb-4">
+                    <label for="Address" class="form-label fw-bold">Address</label>
+                    <input name="Address" type="text" maxlength="500" class="form-control" placeholder="Enter Address" />
+                    <span id="isaddress" class="error" style="display:none">Address is required.</span>
+                </div>
+                <div class="form-outline mb-4">
+                    <label for="Email_Address" class="form-label fw-bold">Email</label>
+                    <input name="Email_Address" id="email" type="text" maxlength="100" class="form-control" placeholder="Enter Email" />
+                    <span id="emailformat" class="error" style="display:none">Email format is not valid</span>
+                    <span id="isemail" class="error" style="display:none">Email is required.</span>
+                </div>
+
+                <div id="txtAddPhone" class="form-outline mb-4">
+                    <label for="Phone" class="form-label fw-bold">Phone Number</label>
+                    <div id="phone_tr" class="tr_phone form-outline ">
+
+                        <div class="form-group w-100 d-flex justify-content-between align-content-center">
+                            <input name="Phone" id="txtPhone" class="form-control onlynumberallow" type="text" maxlength="10" placeholder="Enter Phone Number" />
+                            <a onclick="addNumbers()" id="addNumber">Add <i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <span id="isphonenumber" class="error" style="display:none">Phone is required.</span>
+                    <span id="multiplenumbervalidation" class="error" style="display:none">Please Enter 10 Digits First</span>
+                </div>
+                <div class="form-group d-flex justify-content-between align-content-center">
+                    <a asp-action="EmployeeLis">
+                        <input type="button" value="Go Back" class="btn btn-success btn-lg btn-light skip-button" />
+                    </a>
+                    <input name="skip_submit" type="submit" class="btn btn-success btn-lg submit-btn" value="Save" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

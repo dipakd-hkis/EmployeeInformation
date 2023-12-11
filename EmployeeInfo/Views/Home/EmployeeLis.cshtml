@@ -1,0 +1,110 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<Employee>
+
+@{
+    ViewData["Title"] = "EmployeeList";
+}
+
+<h1>Employee List</h1>
+
+
+<div class="add-employee-btn mb-4">
+    <a asp-action="Index" title="Add Employee"><i class="fa fa-plus"></i> Create New</a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="d-flex justify-content-center">
+                <p style="padding-top:5px">@Html.DisplayName("Id")</p>
+                @if (Model.Count > 0)
+                {
+                    <div>
+                        @if (ViewData["SortOrder"] == "asc")
+                        {
+
+                            @Html.ActionLink("", "EmployeeLis", new { page= 1, sortOrder="asc" }, new { @class = "fa fa-caret-up", title = "asc" })
+                        }
+                        @if (ViewData["SortOrder"] == "des")
+                        {
+                            @Html.ActionLink("", "EmployeeLis", new { page= 1, sortOrder="des" }, new { @class = "fa fa-caret-down", title = "des" })
+                        }
+                    </div>
+                }
+            </th>
+            <th>
+                @Html.DisplayName("Employee Code")
+            </th>
+            <th>
+                @Html.DisplayName("First Name")
+            </th>
+            <th>
+                @Html.DisplayName("Last Name")
+            </th>
+            <th>
+                @Html.DisplayName("Address")
+            </th>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayName("Phone Number")
+            </th>
+            <th>
+                @Html.DisplayName("Action")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmpId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.First_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email_Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrPhone)
+                    </td>
+                    <td class="text-center">
+                        @Html.ActionLink("", "Edit", item, new { @class = "fa fa-edit text-black", title = "Edit" })
+                        @Html.ActionLink("", "Delete", new { id = item.EmpId }, new { @class = "fa fa-trash text-danger", title = "Delete" ,onclick = "return confirm('Do you really want to delete the employee?')" })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="8" style="text-align:center">No Record Found</td></tr>
+        }
+
+    </tbody>
+</table>
+
+<div class="pageCount">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+</div>
+<div class="mb-5">
+    @Html.PagedListPager(Model, pagePos => Url.Action("EmployeeLis", new { type = ViewData["type"], page = pagePos }))
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+}
